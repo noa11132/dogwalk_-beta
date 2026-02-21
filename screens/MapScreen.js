@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { View, ActivityIndicator, StyleSheet, Text } from "react-native";
 import { WebView } from "react-native-webview";
 import * as Location from "expo-location";
+import BottomTabBar from "../components/BottomTabBar";
 
 //실제 플 젝트에서는 키를 코드에 그대로 올리지 않고 .env 같은 곳에 숨기기.
 const KAKAO_JS_KEY = "c501500e882a8cc704505df42be58a40"; 
@@ -100,6 +101,8 @@ export default function MapScreen() {
   const [coords, setCoords] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [mapReady, setMapReady] = useState(false);
+  const [activeTab, setActiveTab] = useState("walk");
+  const [communityBadgeCount, setCommunityBadgeCount] = useState(0); // 0이면 배지 숨김, 나중에 알림 개수 연동
 
   // // 1) 앱 시작 시 위치 권한 요청 + 현재 위치 가져오기
   // useEffect(() => {
@@ -200,7 +203,8 @@ export default function MapScreen() {
 
   return (
     <View style={styles.container}>
-      {/* 지도는 WebView가 차지 */}
+      {/* 지도 영역 */}
+      <View style={styles.mapContainer}>
       <WebView
         ref={webviewRef}
         style={styles.webview}
@@ -230,12 +234,17 @@ export default function MapScreen() {
           <Text style={styles.errorText}>{errorMsg}</Text>
         </View>
       )}
+      </View>
+
+      {/* 하단 탭 바 */}
+      <BottomTabBar activeTab={activeTab} onTabPress={setActiveTab} communityBadgeCount={communityBadgeCount} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  mapContainer: { flex: 1 },
   webview: { flex: 1 },
   overlay: {
     position: "absolute",
