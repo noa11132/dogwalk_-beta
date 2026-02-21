@@ -8,8 +8,13 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+
+// 메인화면(지도) 아래 네비게이션바 설정 <랭킹 / 산책하기 / 커뮤니티 / 프로필>
 const TAB_CONFIG = [
-  { key: "ranking", label: "랭킹", icon: "crown-outline", iconActive: "crown" },
+  { key: "ranking", 
+    label: "랭킹", 
+    icon: "crown-outline", 
+    iconActive: "crown" },
   {
     key: "walk",
     label: "산책하기",
